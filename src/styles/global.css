@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root { font-family: 'Inter', sans-serif; }
+ :root { font-family: 'Inter', sans-serif; }
 @supports (font-variation-settings: normal) {
   :root { font-family: 'Inter var', sans-serif; }
 }
@@ -18,4 +18,8 @@
   --astro-code-token-string-expression: #fe351b;
   --astro-code-token-punctuation: #ffffff;
   --astro-code-token-link: #ffffff;
+}
+
+.prose-styles {
+  @apply prose text-sm mt-8 font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic  prose-headings:text-base prose-headings:font-medium prose-headings:font-sans prose-headings:uppercase prose-headings:tracking-tighter hover:prose-a:text-accent-600
 }

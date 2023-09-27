@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import EntriesOne from "@/components/entries/EntriesOne.astro";
+import EntriesOne from "@/components/blog/EntriesOne.astro";
 import { getCollection } from "astro:content";
 export async function getStaticPaths() {
   const allPosts = await getCollection("posts");
@@ -25,9 +25,13 @@ const { posts } = Astro.props;
 
 <BaseLayout pageTitle={tag}>
   <section>
-    <div class="px-8 md:px-12 mx-auto max-w-7xl py-12 lg:py-32">
-      <ul
-        class="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-24 lg:gap-x-6">
+    <div class="p-8 max-w-2xl">
+      <div>
+        <p class="font-medium text-zinc-700 uppercase">
+          All posts tagged with <span class="font-serif italic">{tag}</span>
+        </p>
+      </div>
+      <ul class="grid grid-cols-1 gap-y-12 mt-6">
         {
           posts.map((post) => (
             <EntriesOne
