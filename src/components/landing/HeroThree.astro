@@ -1,8 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import EntriesThree from "@/components/blog/EntriesThree.astro";
+const allPosts = await getCollection("posts");
+---
 <section>
   <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
     <div>
       <div
-        class="prose text-sm font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic grid-cols-1 mx-auto lg:grid-cols-2 grid space-y-0 gap-x-6 prose-styles max-w-none">
+        class="prose text-sm font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic grid-cols-1 mx-auto lg:grid-cols-2 grid space-y-0 gap-x-6 prose-styles max-w-non text-pretty">
         <p>
           Well, you see, I'm Ernest Hemingway, a writer who's been fortunate
           enough to live a life filled with adventure and words. Born in Oak
@@ -49,5 +54,29 @@
         </p>
       </div>
     </div>
+  </div>
+</section>
+<section>
+  <div class="p-8 max-w-xl mx-auto">
+    <div>
+      <p class="font-medium text-zinc-700 uppercase">Latest blog entries</p>
+    </div>
+    <ul class="grid grid-cols-1 gap-y-12 mx-auto mt-6 w-full" role="list">
+      {
+        allPosts
+          .slice(0, 2)
+          .map((post) => (
+            <EntriesThree
+              url={"/posts/" + post.slug}
+              title={post.data.title}
+              description={post.data.description}
+              alt={post.data.title}
+              pubDate={post.data.pubDate.toString().slice(0, 10)}
+              author={post.data.author}
+              image={post.data.image.url}
+            />
+          ))
+      }
+    </ul>
   </div>
 </section>

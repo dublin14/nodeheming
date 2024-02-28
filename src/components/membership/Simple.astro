@@ -1,46 +1,61 @@
+---
+// Define the tier data
+const pricingTiers = [
+  {
+    name: "Premium Membership",
+    price: "$9.99",
+    description: "For avid readers",
+    benefits: [
+      "Full access to all blog content",
+      "Exclusive members-only articles",
+      "Priority email support",
+      "Monthly newsletter",
+      "Early access to new posts",
+    ],
+    buttonLabel: "Buy for $499",
+    buttonLink: "#_",
+  },
+  // Add more tiers here if needed
+];
+---
 <section>
   <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
     <div class="max-w-sm">
       <div>
         <h1 class="font-medium text-zinc-700 uppercase">Simple Pricing</h1>
       </div>
-      <div class="relative flex-col flex border bg-white p-4 lg:p-8 mt-6">
-        <ul class="flex flex-col list-disc list-inside" role="list">
-          <li class="block text-sm font-medium text-black">
-            Premium Membership — <strong>$9.99</strong>
-          </li>
-          <li class="mt-1 flex items-center text-sm text-neutral-600">
-            For avid readers
-          </li>
-          <li class="mt-6 text-sm font-medium text-neutral-900">
-            Full access to all blog content
-          </li>
-          <li class="mt-3 text-sm font-medium text-neutral-900">
-            Exclusive members-only articles
-          </li>
-          <li class="mt-3 text-sm font-medium text-neutral-900">
-            Priority email support
-          </li>
-          <li class="mt-3 text-sm font-medium text-neutral-900">
-            Monthly newsletter
-          </li>
-          <li class="mt-3 text-sm font-medium text-neutral-900">
-            Early access to new posts
-          </li>
-        </ul>
-        <div class="mt-4">
-          <a
-            class="inline-flex h-10 items-center focus:outline-none bg-white border border-neutral-300 focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium hover:bg-neutral-50 px-4 py-1 rounded-full text-black text-sm duration-200 w-full text-center justify-center"
-            href="#_">
-            Buy for $499
-          </a>
-        </div>
-      </div>
+      {
+        pricingTiers.map((tier) => (
+          <div class="relative flex flex-col border bg-white p-4 lg:p-8 mt-6">
+            <ul class="flex flex-col list-disc list-inside" role="list">
+              <li class="block text-sm font-medium text-black">
+                {tier.name} — <strong>{tier.price}</strong>
+              </li>
+              <li class="mt-1 flex items-center text-sm text-neutral-600">
+                {tier.description}
+              </li>
+              {tier.benefits.map((benefit) => (
+                <li class="mt-3 text-sm font-medium text-neutral-900">
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-4">
+              <a
+                href={tier.buttonLink}
+                title={tier.name}
+                aria-label={tier.buttonLabel}
+                class="inline-flex h-10 w-full items-center focus:outline-none bg-white border border-neutral-300 focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium hover:bg-neutral-50 px-4 py-1 rounded-full text-black text-sm duration-200 w-full text-center justify-center"
+              >
+                {tier.buttonLabel}
+              </a>
+            </div>
+          </div>
+        ))
+      }
       <div class="flex flex-col gap-6 mt-12 w-full">
         <div>
-          <h1 class="text-zinc-500">
-            Secure Payment via Payment Provider
-          </h1>
+          <h1 class="text-zinc-500">Secure Payment via Payment Provider</h1>
         </div>
         <div class="mt-3 md:mt-0">
           <ul class="flex flex-wrap list-none" role="list">

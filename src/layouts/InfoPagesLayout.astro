@@ -1,0 +1,21 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout>
+  <section>
+    <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
+      <div class="max-w-2xl">
+        <div>
+          <h1 class="font-medium text-zinc-700 uppercase">
+            {frontmatter.page}
+          </h1>
+        </div>
+        <div class="prose-styles">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
