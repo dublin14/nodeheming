@@ -8,4 +8,4 @@ export async function GET(context) {
       import.meta.glob('./blog/*.{md,mdx}'),
     ),
   });
-}r
+}
