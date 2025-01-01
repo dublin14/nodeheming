@@ -1,22 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-:root {
-  font-family: Inter, sans-serif;
-  font-feature-settings:
-  "liga" 1,
-  "calt" 1, /* Contextual Alternates */
-  "dlig" 1, /* Discretionary Ligatures */
-  "ss07" 1, /* fSquare punctuation */
-  "ss08" 1, /* Square quotes */
-  "zero" 1, /* Slashed zero */
-  "tnum" 1, /* Tabular numbers */
-    "cv03" 1, /* Open six */
-    "cv04" 1, /* Open nine */
-    "cv01" 1, /* Alternate one */
-    "cv09", /* Flat-top three */
-    "cv02" 1; /* Open 4 */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+@layer components {
+  .prose-styles {
+    @apply prose text-sm mt-8 font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic  prose-headings:text-base prose-headings:font-medium prose-headings:font-sans prose-headings:uppercase prose-headings:tracking-tighter prose-a:hover:text-accent-600;
+  }
 }
+@theme {
+  /* Typography*/
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Newsreader", serif;
+  /* Colors */
+  --color-black: #010101;
+  --color-accent-50: oklch(96.56% 0.013 41.2);
+  --color-accent-100: oklch(93.04% 0.028 36.86);
+  --color-accent-200: oklch(86.4% 0.057 37.22);
+  --color-accent-300: oklch(79.75% 0.089 37.16);
+  --color-accent-400: oklch(74.19% 0.118 37.31);
+  --color-accent-500: oklch(68.44% 0.15 37.77);
+  --color-accent-600: oklch(63.12% 0.182 36.62);
+  --color-accent-700: oklch(52.41% 0.16 36.52);
+  --color-accent-800: oklch(38.72% 0.112 36.83);
+  --color-accent-900: oklch(24.88% 0.064 37.97);
+  --color-accent-950: oklch(17.91% 0.038 43.07);
+}
+
 @supports (font-variation-settings: normal) {
   /* Use variable font if supported */
   :root {
@@ -25,7 +33,14 @@
 }
 
 :root {
- --astro-code-token-link: theme(textColor.white);
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1,
+    /* Contextual Alternates */ "dlig" 1, /* Discretionary Ligatures */ "ss07" 1,
+    /* fSquare punctuation */ "ss08" 1, /* Square quotes */ "zero" 1,
+    /* Slashed zero */ "tnum" 1, /* Tabular numbers */ "cv03" 1,
+    /* Open six */ "cv04" 1, /* Open nine */ "cv01" 1,
+    /* Alternate one */ "cv09", /* Flat-top three */ "cv02" 1; /* Open 4 */
+  --astro-code-token-link: theme(textColor.white);
   --astro-code-token-keyword: theme(textColor.black);
   --astro-code-token-function: theme(textColor.black);
   --astro-code-token-parameter: theme(textColor.white);
@@ -36,8 +51,4 @@
   --astro-code-token-constant: theme(textColor.neutral.700);
   --astro-code-color-background: theme(backgroundColor.white);
   --astro-code-token-string-expression: theme(textColor.accent.600);
-}
-
-.prose-styles {
-  @apply prose text-sm mt-8 font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic  prose-headings:text-base prose-headings:font-medium prose-headings:font-sans prose-headings:uppercase prose-headings:tracking-tighter hover:prose-a:text-accent-600
 }

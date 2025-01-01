@@ -3,11 +3,11 @@ import { getCollection } from "astro:content";
 import EntriesTwo from "@/components/blog/EntriesTwo.astro";
 const allPosts = await getCollection("posts");
 ---
+
 <section>
   <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
     <div>
-      <div
-        class="prose text-sm font-serif text-zinc-700 font-normal prose-a:text-zinc-700 prose-a:no-underline prose-a:font-serif prose-a:italic mx-auto prose-styles max-w-none text-pretty">
+      <div class="prose-styles mx-auto">
         <p>
           Well, you see, I'm Ernest Hemingway, a writer who's been fortunate
           enough to live a life filled with adventure and words. Born in Oak
@@ -61,7 +61,10 @@ const allPosts = await getCollection("posts");
     <div>
       <p class="font-medium text-zinc-700 uppercase">Latest blog entries</p>
     </div>
-    <ul class="grid grid-cols-1 gap-y-12 md:grid-cols-2 mx-auto lg:gap-y-24 gap-x-6 mt-6 w-full" role="list">
+    <ul
+      class="grid grid-cols-1 gap-y-12 md:grid-cols-2 mx-auto lg:gap-y-24 gap-x-6 mt-6 w-full"
+      role="list"
+    >
       {
         allPosts
           .slice(0, 2)
@@ -80,4 +83,3 @@ const allPosts = await getCollection("posts");
     </ul>
   </div>
 </section>
-
