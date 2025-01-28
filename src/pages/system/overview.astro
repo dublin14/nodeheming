@@ -1,0 +1,143 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+const pageSections = [
+  {
+    title: "Static  ",
+    columns: [
+      {
+        category: " Pages",
+        links: [
+          { text: "Home", href: "/" },
+          { text: "404", href: "/404" },
+          { text: "About", href: "/about" },
+          { text: "Subscription", href: "/pricing" },
+        ],
+      },
+      {
+        category: "Forms",
+        links: [
+          { text: "Login", href: "/forms/login" },
+          { text: "Sign up", href: "/forms/signup" },
+          { text: "Contact", href: "/contact" },
+        ],
+      },
+      {
+        category: "System",
+        links: [
+          { text: "Colors", href: "/system/colors" },
+          { text: "Links", href: "/system/link" },
+          { text: "Buttons", href: "/system/buttons" },
+          { text: "Typography", href: "/system/typography" },
+        ],
+      },
+      {
+        category: "Resources",
+        links: [
+          { text: "Social", href: "https://x.com/lexingtonthemes" },
+          {
+            text: "License",
+            href: "https://lexingtonthemes.com/legal/license",
+          },
+          {
+            text: "Documentation",
+            href: "https://lexingtonthemes.com/documentation/quick-start",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Content Collections",
+    columns: [
+      {
+        category: "Blog Pages",
+        links: [
+          { text: "Blog home", href: "/blog/home" },
+          { text: "Blog Post", href: "/blog/posts/1" },
+          { text: "Tag Index", href: "/blog/tags" },
+          { text: "Tag Category", href: "/blog/tags/balance" },
+          { text: "RSS", href: "/rss.xml" },
+        ],
+      },
+      {
+        category: "Podcast Pages",
+        links: [
+          { text: "Podcast home", href: "/podcast/home" },
+          { text: "Interview episode", href: "/podcast/interviews/1" },
+        ],
+      },
+      {
+        category: "Utility Pages",
+        links: [
+          { text: "DPA", href: "/infopages/privacy" },
+          { text: "Cookies", href: "/infopages/cookies" },
+          { text: "Terms Of Use", href: "/infopages/terms" },
+          { text: "Privacy Policy", href: "/infopages/privacy" },
+          { text: "Ethics-statement", href: "/infopages/ethics-statement" },
+        ],
+      },
+      {
+        category: "Other Pages",
+        links: [
+          { text: "Authors", href: "/authors/home" },
+          { text: "Author details", href: "/authors/1" },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pb-24">
+      <Text tag="h1" variant="textXS" class="font-medium text-black uppercase">
+        Overview
+      </Text>
+      <div class="grid grid-cols-2 md:grid-cols-2 gap-4 max-w-xs mt-12">
+        {
+          pageSections.map((section) => (
+            <div>
+              <Text tag="h3" variant="textBase" class="text-black font-serif ">
+                {section.title}
+              </Text>
+              <div class="flex flex-col mt-4  gap-8 lg:col-span-3">
+                {section.columns.map((column) => (
+                  <div class="flex flex-col gap-">
+                    <Text
+                      tag="p"
+                      variant="textXS"
+                      class="font-medium text-black uppercase"
+                    >
+                      {column.category}
+                    </Text>
+                    <ul
+                      role="list"
+                      class="mt-1 list-none"
+                    >
+                      {column.links.map((link) => (
+                        <li>
+                          <Text
+                            tag="a"
+                            variant="textXS"
+                            class="text-base-500 font-medium hover:text-black hover:underline "
+                            href={link.href}
+                          >
+                            {link.text}
+                          </Text>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

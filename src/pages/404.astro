@@ -1,5 +1,31 @@
 ---
+// Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 ---
+
 <BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="text-center" class="pt-32 pb-12 h-dvh flex flex-col items-center justify-center">
+      <div>
+        <Text
+          tag="p"
+          variant="display3XL"
+          class="text-black text-center font-serif tracking-tight font-light"
+          >404
+        </Text>
+        <div class="flex justify-center">
+          <Link
+            href="/podcast/home"
+            class="w-auto text-center"
+            size="xs"
+            tag
+            variant="default">Go back home</Link
+          >
+        </div>
+      </div>
+    </Wrapper>
+  </section>
 </BaseLayout>

@@ -1,0 +1,43 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
+      <div class="lg:col-span-2 max-w-3xl pt-36 lg:pt-148">
+        <Text
+          tag="h1"
+          variant="displayMD"
+          class="font-serif font-light leading-6 md:leading-8 text-base-500"
+          >Welcome to <span class="text-black"
+            >Innovative Design Conversations</span
+          >, where creativity meets engineering. Join us for insightful
+          interviews and podcasts that explore the minds of design engineers —</Text
+        >
+      </div>
+      <div
+        class="font-serif text-base-600 grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <Text tag="p" variant="textSM" class="first-letter:text-2xl">
+          In today's rapidly evolving design landscape, the role of design
+          engineers has become increasingly vital. They bridge the gap between
+          aesthetic vision and engineering practicality, ensuring that creative
+          ideas are not only visually appealing but also feasible to implement.
+          This fusion of creativity and technical skill enables design engineers
+          to tackle complex problems efficiently while maintaining a focus on
+          user experience
+        </Text>
+        <Text tag="p" variant="textSM">
+          Our blog serves as a platform to explore the diverse perspectives
+          within the design engineering field. Through insightful interviews
+          with industry experts, engaging podcasts, and informative articles, we
+          aim to illuminate the challenges and triumphs faced by design
+          engineers. Join us as we share stories, knowledge, and inspiration,
+          fostering a community dedicated to innovative design solutions
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>

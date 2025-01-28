@@ -1,8 +1,9 @@
 ---
 page: Terms
-pubDate: 2024-02-28
+pubDate: 2025-01-19
 ---
-## All the terms that you agree to when you sign up for a Lexington product.
+
+### All the terms that you agree to when you sign up for a Lexington product.
 
 From everyone at Lexington, thank you for using our products! We build them to help you do your best work. There are millions of people using Lexington products every day. Because we don’t know every one of our customers personally, we have to put in place some Terms of Service to help keep the ship afloat.
 

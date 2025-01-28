@@ -1,0 +1,54 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+const { url, title, description, pubDate, guestAvatar, image, author } = {
+  url: "/podcast/interviews/" + Astro.props.post.slug,
+  title: Astro.props.post.data.title,
+  author: Astro.props.post.data.author,
+  guestAvatar: Astro.props.post.data.guestAvatar.url,
+  image: Astro.props.post.data.image.url,
+  description: Astro.props.post.data.description,
+  pubDate: new Date(Astro.props.post.data.pubDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  }),
+};
+---
+
+<article
+  class="group relative grid grid-cols-2 gap-y-8 py-2 lg:grid-cols-3 overflow-hidden md:col-span-full"
+>
+  <Image
+    src={image}
+    alt={title}
+    width="2000"
+    height="2000"
+    class="aspect-square object-cover object-center"
+  />
+  <Image
+    src={guestAvatar}
+    alt={title}
+    width="2000"
+    height="2000"
+    class="aspect-square object-cover object-center lg:order-last"
+  />
+  <div class="col-span-full lg:col-span-1 mt-2 flex flex-col lg:h-full order-first">
+    <div class="w-1/2 mt-auto">
+      <Text tag="p" variant="textXS" class="uppercase  text-base-400">
+        <time datetime={pubDate}>{pubDate}</time>
+      </Text>
+      <Text tag="h2" variant="textSM" class="font-medium mt-1">
+        {author} —{title}
+        <a href={url} title={title}>
+          <span class="absolute inset-0"></span>
+        </a>
+      </Text>
+      <Text tag="p" variant="textSM" class="text-base-500 mt-1">
+        {description}
+      </Text>
+    </div>
+  </div>
+</article>

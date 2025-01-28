@@ -1,0 +1,33 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Podcast entry components
+import PodcastWideEntry from "@/components/podcast/PodcastWideEntry.astro";
+// Sections
+import Hero from "@/components/podcast/Hero.astro";
+import Subscribe from "@/components/blog/Subscribe.astro";
+
+// Asro content collections
+import { getCollection } from "astro:content";
+// Get all podcasts
+const allPodcasts = await getCollection("podcast");
+allPodcasts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+---
+
+<BaseLayout>
+  <Hero />
+  <section>
+    <Wrapper variant="standard">
+      <div class="border-y divide-y border-black pt-2 mt-4 flex flex-col">
+        {allPodcasts.map((post) => <PodcastWideEntry post={post} />)}
+      </div>
+    </Wrapper>
+  </section>
+  <Subscribe />
+</BaseLayout>

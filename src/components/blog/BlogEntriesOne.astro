@@ -1,0 +1,42 @@
+---
+// Assets
+import { Image } from "astro:assets";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+const { url, title, description, pubDate, image, author } = {
+  url: "/blog/posts/" + Astro.props.post.slug,
+  title: Astro.props.post.data.title,
+  author: Astro.props.post.data.author,
+  image: Astro.props.post.data.image.url,
+  description: Astro.props.post.data.description,
+  pubDate: new Date(Astro.props.post.data.pubDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  }),
+};
+---
+
+<article class="relative">
+  <Image
+    src={image}
+    width="1000"
+    height="1000"
+    class="aspect-square object-cover"
+    alt={title}
+  />
+  <div class="mt-4">
+    <Text tag="p" variant="textXS" class="uppercase text-base-400">
+      <time datetime={pubDate}>{pubDate}</time>
+    </Text>
+    <Text tag="h2" variant="textSM" class="font-medium mt-1">
+      {author} —{title}
+      <a href={url} title={title}>
+        <span class="absolute inset-0"></span>
+      </a>
+    </Text>
+    <Text tag="p" variant="textSM" class="text-base-500 mt-1">
+      {description}
+    </Text>
+  </div>
+</article>

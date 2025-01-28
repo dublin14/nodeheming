@@ -1,80 +1,108 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import LoginImage from "@/images/login.jpeg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
 <section>
-  <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
-    <div class="max-w-2xl mx-auto text-center">
-      <div>
-        <h1 class="font-medium text-zinc-700 uppercase">Log in to Hemingway</h1>
+  <Wrapper variant="standard">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="lg:order-last">
+        <Image
+          class="h-64 w-full bg-base-50 object-cover lg:h-[92vh] grayscale"
+          src={LoginImage}
+          width={1000}
+          height={1000}
+          alt="#_"
+        />
       </div>
-      <form class="space-y-2 mt-6">
-        <div>
-          <label for="email" class="sr-only">Email address</label><div
-            class="mt-2"
+      <div
+        class="flex flex-col h-full 2xl:max-w-3xl 2xl:mx-auto justify-center p-8 lg:p-20"
+      >
+        <div class="lg:text-balance text-center">
+          <Text
+            tag="h1"
+            variant="display2XL"
+            class="text-black text-center text-balance font-serif tracking-tight font-light"
           >
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="email@example.com"
-              aria-placeholder="email@example.com"
-              required=""
-              class="block w-full text-center rounded-full border border-zinc-300 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
-            />
-          </div>
-        </div>
-        <div>
-          <label for="password" class="sr-only">Password</label><div
-            class="mt-2"
+            Sign in to your account
+          </Text>
+          <Text
+            tag="p"
+            variant="textXS"
+            class="uppercase text-base-500 font-medium mt-1"
           >
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="your password"
-              aria-placeholder="your password"
-              required=""
-              class="block w-full text-center rounded-full border border-zinc-300 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
-            />
-          </div>
+            Welcome back! Please enter your email and password to sign in.
+          </Text>
         </div>
-        <div class="inline-flex items-center gap-2 justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 rounded-full text-500 focus:ring-zinc-600 text-black"
-            /><label for="remember-me" class="ml-2 block text-sm text-black"
-              >Remember me</label
+        <form action="#" method="POST" class="mt-8 flex flex-col gap-4">
+          <div>
+            <label class="sr-only"> Email </label>
+            <div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error"
+                placeholder="Your email"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:ring-2 focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span id="email-error" class="text-red-600 text-sm hidden">
+                Please enter a valid email address.
+              </span>
+            </div>
+          </div>
+          <div>
+            <label class="sr-only">
+              Password
+              <a class="undefined"> Forgot password? </a>
+            </label>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                autocomplete="current-password"
+                required
+                aria-required="true"
+                aria-describedby="password-error"
+                placeholder="Your password"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:ring-2 focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span id="password-error" class="text-red-600 text-sm hidden">
+                Please enter a valid password.
+              </span>
+            </div>
+          </div>
+          <div class="w-full flex">
+            <Button size="sm" type="submit" variant="default" class="w-full">
+              Log In
+            </Button>
+          </div>
+          <div class="flex items-center mt-12 justify-center">
+            <Text
+              tag="p"
+              variant="textXS"
+              class="uppercase text-base-500 font-medium mt-1"
             >
+              Don't have an account?
+              <a
+                class="text-black leading-normal font-medium hover:text-base-500"
+                href="/forms/signup"
+              >
+                Sign up
+              </a>
+            </Text>
           </div>
-          <div class="text-sm">
-            <a
-              href="/forms/reset"
-              class="font-medium text-zinc-700 hover:text-accent-600"
-              >Forgot your password?</a
-            >
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            class="items-center w-full inline-flex border duration-200 focus:ring-2 focus:ring-offset-2 justify-center px-4 py-2 rounded-full text-sm bg-black border-transparent focus:ring-white hover:bg-black/10 hover:text-white ring-1 ring-transparent text-white"
-            >Sign in</button
-          >
-        </div>
-        <div class="text-sm">
-          Don't have an account?
-          <a
-            href="/forms/signup"
-            title="link to your page"
-            aria-label="your label"
-            class="tems-center mt-2 w-full inline-flex border duration-200 focus:ring-2 focus:ring-offset-2 justify-center px-4 py-2 rounded-full text-sm bg-white border-transparent focus:ring-white hover:bg-black/10 ring-1 ring-transparent text-black"
-          >
-            Create an account!</a
-          >
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
+  </Wrapper>
 </section>

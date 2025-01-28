@@ -1,61 +1,148 @@
+---
+// Assets
+import { Image } from "astro:assets";
+import signupImage from "@/images/signup.jpeg";
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
 <section>
-  <div class="p-8 text-zinc-700 text-xs flex flex-col w-full">
-    <div class="max-w-2xl mx-auto text-center">
-      <div>
-        <h1 class="font-medium text-zinc-700 uppercase">
-          Sign up to Hemingway
-        </h1>
+  <Wrapper variant="standard">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="lg:order-last">
+        <Image
+          class="h-64 w-full bg-base-50 object-cover lg:h-[92vh] grayscale"
+          src={signupImage}
+          width={1000}
+          height={1000}
+          alt="#_"
+        />
       </div>
-      <form class="space-y-2 mt-6">
-        <div>
-          <label for="email" class="sr-only">Email address</label><div
-            class="mt-2"
+      <div
+        class="flex flex-col h-full 2xl:max-w-3xl 2xl:mx-auto justify-center p-8 lg:p-20"
+      >
+        <div class="lg:text-balance text-center">
+          <Text
+            tag="h1"
+            variant="display2XL"
+            class="text-black text-center text-balance font-serif tracking-tight font-light"
           >
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              placeholder="email@example.com"
-              required=""
-              class="block w-full text-center rounded-full border border-zinc-300 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
-            />
+            Sign up to Hemmingway
+          </Text>
+          <Text
+            tag="p"
+            variant="textXS"
+            class="uppercase text-base-500 font-medium mt-1"
+          >
+            fill in the form below to create your account.
+          </Text>
+        </div>
+        <form action="#" method="POST" class="mt-8 flex flex-col gap-4">
+          <div>
+            <label for="name" class="sr-only">Name</label>
+            <div>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                autocomplete="name"
+                required
+                aria-required="true"
+                aria-describedby="name-error"
+                placeholder="Your name"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:border focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span id="name-error" class="text-red-600 text-sm hidden">
+                Please enter your name.
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <label for="password" class="sr-only">Password</label><div
-            class="mt-2"
-          >
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="your password"
-              required
-              class="block w-full text-center rounded-full border border-zinc-300 px-4 py-2 font-spline text-sm font-medium text-zinc-800 placeholder-zinc-400 focus:border-zinc-500 focus:outline-none focus:ring-2 lg:px-6 focus:ring-zinc-600/50 disabled:opacity-50"
-            />
+          <div>
+            <label for="email" class="sr-only">Email</label>
+            <div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error"
+                placeholder="Your email"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:border focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span id="email-error" class="text-red-600 text-sm hidden">
+                Please enter a valid email address.
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            class="items-center w-full inline-flex border duration-200 focus:ring-2 focus:ring-offset-2 justify-center px-4 py-2 rounded-full text-sm bg-black border-transparent focus:ring-white hover:bg-black/10 hover:text-white ring-1 ring-transparent text-white"
-            >Sign in</button
+          <div>
+            <label for="password" class="sr-only">Create password</label>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                autocomplete="new-password"
+                required
+                aria-required="true"
+                aria-describedby="password-error"
+                placeholder="Create password"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:border focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span id="password-error" class="text-red-600 text-sm hidden">
+                Please enter a valid password.
+              </span>
+            </div>
+          </div>
+          <div>
+            <label for="confirm-password" class="sr-only"
+              >Confirm password</label
+            >
+            <div>
+              <input
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
+                autocomplete="new-password"
+                required
+                aria-required="true"
+                aria-describedby="confirm-password-error"
+                placeholder="Confirm password"
+                class="w-full py-2 h-8 border-t-0 px-0 border-x-0 bg-transparent border-b border-base-300 text-xs focus:outline-none focus:border focus:ring-base-500 focus:border-base-500 placeholder-base-500"
+              />
+              <span
+                id="confirm-password-error"
+                class="text-red-600 text-sm hidden"
+              >
+                Passwords do not match.
+              </span>
+            </div>
+          </div>
+          <div class="w-full flex">
+            <Button size="sm" type="submit" variant="default" class="w-full">
+              Sign up
+            </Button>
+          </div>
+        </form>
+        <div class="flex items-center mt-12 justify-center">
+          <Text
+            tag="p"
+            variant="textXS"
+            class="uppercase text-base-500 font-medium mt-1"
           >
+            Have an account?
+            <a
+              class="text-black leading-normal font-medium hover:text-base-500"
+              href="/forms/login"
+            >
+              Sign in
+            </a>
+          </Text>
         </div>
-        <div class="text-sm">
-          Already on board?
-          <a
-            href="/forms/login"
-            title="link to your page"
-            aria-label="your label"
-            class="tems-center mt-2 w-full inline-flex border duration-200 focus:ring-2 focus:ring-offset-2 justify-center px-4 py-2 rounded-full text-sm bg-white border-transparent focus:ring-white hover:bg-black/10 ring-1 ring-transparent text-black"
-          >
-            Log in!</a
-          >
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </Wrapper>
 </section>

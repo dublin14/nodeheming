@@ -1,0 +1,51 @@
+---
+// Images
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "./BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+// Props
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <Image
+            class="h-64 w-full bg-base-50 object-cover sticky top-12 z-10 lg:h-[92vh] grayscale"
+            src={frontmatter.image.url}
+            alt={frontmatter.image.alt}
+            width={1000}
+            height={1000}
+          />
+        </div>
+        <div class="lg:py-32">
+          <div class="">
+            <Text
+              tag="h1"
+              variant="display3XL"
+              class="text-black font-serif tracking-tight  font-light"
+            >
+              {frontmatter.name}
+            </Text>
+            <Text
+              tag="h1"
+              variant="textLG"
+              class="font-serif mt-8 text-base-500 max-w-xl "
+            >
+              <span class="text-black font-medium">{frontmatter.author}</span> —
+              {frontmatter.description}</Text
+            >
+          </div>
+          <Wrapper variant="prose" class="max-w-xl border-t pt-12  mt-12 border-base-300"
+            ><slot /></Wrapper
+          >
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

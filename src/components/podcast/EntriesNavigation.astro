@@ -1,0 +1,14 @@
+---
+// Fundations
+import Text from "@/components/fundations/elements/Text.astro";
+const { url, title } = {
+  url: "/podcast/interviews" + Astro.props.post.slug,
+  title: Astro.props.post.data.title,
+};
+---
+
+<article>
+  <Text href={url} title={title} tag="a" variant="textSM" class="upperase  font-serif text-black">
+    {title}
+  </Text>
+</article>

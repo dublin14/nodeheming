@@ -1,0 +1,116 @@
+---
+// Images
+import { Image } from "astro:assets";
+// Fundations
+import BaseLayout from "./BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import Subscribe from "@/components/blog/Subscribe.astro";
+// Props
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper class="standard" class="pb-32">
+      <Image
+        height={2000}
+        width={2000}
+        src={frontmatter.guestAvatar.url}
+        alt={frontmatter.guestAvatar.alt}
+        class="object-cover size-full aspect-square h-98 hidden"
+      />
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 h-full">
+        <!-- Right Column -->
+        <div class="lg:order-last w-full">
+          <div class="lg:sticky lg:top-4 lg:z-10">
+            <div class="gap-2 lg:gap-0">
+              <Image
+                height={2000}
+                width={2000}
+                src={frontmatter.guestAvatar.url}
+                alt={frontmatter.guestAvatar.alt}
+                class="object-cover size-full aspect-square lg:aspect-auto h-auto"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Left Column -->
+        <div>
+          <Text
+            tag="p"
+            variant="textXS"
+            class="uppercase font-medium text-base-500"
+          >
+            <time
+              datetime={new Date(frontmatter.pubDate).toLocaleDateString(
+                "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit",
+                }
+              )}
+            >
+              {
+                new Date(frontmatter.pubDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit",
+                })
+              }</time
+            ></Text
+          >
+          <Text tag="h1" variant="textXS" class="uppercase text-black">
+            guest:— {frontmatter.author}
+          </Text>
+          <div class="max-w-3xl pt-12 lg:pt-152 2xl:pt-280">
+            <Text
+              tag="h1"
+              variant="displayMD"
+              class="font-serif font-light leading-6 md:leading-8 text-base-500"
+            >
+              <span class="text-black"> {frontmatter.title}</span> —
+              {frontmatter.description} —</Text
+            >
+            <div class="mt-8">
+              <Text tag="h1" variant="textXS" class="uppercase text-nblack">
+                listen on</Text
+              >
+              <ul role="list" class="list list-disc list-inside mt-1">
+                {
+                  frontmatter.channels.map((channel) => (
+                    <li>
+                      <Text
+                        tag="a"
+                        variant="textXS"
+                        href={channel.url}
+                        class="text-black uppercase text-right font-medium hover:underline"
+                      >
+                        {channel.label}
+                      </Text>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <Text
+            tag="h1"
+            variant="textXS"
+            class="uppercase mt-24 lg:mt-40 text-nblack"
+          >
+            transcript</Text
+          >
+          <Wrapper variant="prose" class="mt-1 border-t border-black pt-4">
+            <slot /></Wrapper
+          >
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+  <Subscribe />
+</BaseLayout>

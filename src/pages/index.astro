@@ -1,7 +1,143 @@
 ---
+// Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Overview from "@/components/system/Overview.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import HeroOne from "@/components/blog/HeroOne.astro";
+import Subscribe from "@/components/blog/Subscribe.astro";
+// Blog entry components
+import BlogWideEntry from "@/components/blog/BlogWideEntry.astro";
+import BlogEntriesOne from "@/components/blog/BlogEntriesOne.astro";
+// Podcast entry components
+import PodcastEntriesOne from "@/components/podcast/PodcastEntriesOne.astro";
+import PopularInterviews from "@/components/podcast/PopularInterviews.astro";
+
+// Asro content collections
+import { getCollection } from "astro:content";
+// Get all podcasts
+
+const allPodcasts = await getCollection("podcast");
+allPodcasts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+// Get all blog posts
+const allPosts = await getCollection("posts");
+allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
 ---
+
 <BaseLayout>
-  <Overview />
+  <HeroOne />
+  <section>
+    <Wrapper variant="standard" class="pt-32 pb-12">
+      <div class="flex items-center flex-wrap justify-between w-full">
+        <Text tag="p" variant="textSM" class="uppercase font-medium">
+          Recent blog posts with design engineers
+        </Text>
+        <Link
+          size="xs"
+          variant="default"
+          href="/blog/home"
+          class="w-auto text-center">Read them all</Link
+        >
+      </div>
+      <div
+        class="grid border-t border-black pt-2 mt-2 items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2"
+      >
+        <!-- 
+      // Step 1: Use .slice(0, 7) to take the first 7 posts.
+      // This ensures there are enough posts to account for inserting <BlogWideEntry>
+      // components while limiting the final grid to 6 items.
+      //
+      //
+      // Step 2: Insert a <BlogWideEntry> after the 2nd and 4th <BlogEntriesOne>.
+      // For indices 2 and 4, return both:
+      // - The current <BlogEntriesOne>
+      // - The <BlogWideEntry> using the next post (index + 1), if it exists.
+      //
+      //
+      // Step 3: Skip posts already used in <BlogWideEntry> to avoid duplication.
+      // Posts at indices 3 and 5 are used for <BlogWideEntry>, so they are skipped.
+      //
+      //
+      // Step 4: Render <BlogEntriesOne> for all other posts.
+      //
+      //
+      // Step 5: Ensure the final output contains exactly 6 items.
+      // Use .slice(0, 6) to limit the number of rendered elements to 6 total.
+      -->
+        {
+          allPosts
+            .slice(0, 7)
+            .flatMap((post, index) => {
+              if (index === 2 || index === 4) {
+                return [
+                  <BlogEntriesOne key={`entry-${post.id}`} post={post} />,
+                  index + 1 < allPosts.length && (
+                    <BlogWideEntry
+                      key={`wide-${allPosts[index + 1]?.id}`}
+                      post={allPosts[index + 1]}
+                    />
+                  ),
+                ];
+              }
+              if (index === 3 || index === 5) {
+                return null;
+              }
+              return <BlogEntriesOne key={`entry-${post.id}`} post={post} />;
+            })
+            .slice(0, 6)
+        }
+      </div>
+    </Wrapper>
+  </section>
+  <section>
+    <Wrapper variant="standard" class="pt-32 pb-12">
+      <div class="flex items-center flex-wrap justify-between w-full">
+        <Text tag="p" variant="textSM" class="uppercase font-medium">
+          Recent interviews with design engineers
+        </Text>
+        <Link
+          href="/podcast/home"
+          class="w-auto text-center"
+          size="xs"
+          tag
+          variant="default">Listen to them all</Link
+        >
+      </div>
+      <div
+        class="grid border-t border-black pt-2 mt-2 items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2"
+      >
+        {
+          allPodcasts
+            .slice(0, 4)
+            .map((post) => <PodcastEntriesOne post={post} />)
+        }
+      </div>
+    </Wrapper>
+  </section>
+  <Subscribe />
+  <section>
+    <Wrapper variant="standard" class="pt-32 pb-12">
+      <Text tag="p" variant="textSM" class="uppercase font-medium">
+        Popular interviews
+      </Text>
+      <div
+        class="grid border-t border-black pt-2 mt-2 items-start grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12"
+      >
+        {
+          allPodcasts
+            .slice(2, 4)
+            .map((post) => <PopularInterviews post={post} />)
+        }
+      </div>
+    </Wrapper>
+  </section>
 </BaseLayout>

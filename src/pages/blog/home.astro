@@ -1,0 +1,46 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import HeroTwo from "@/components/blog/HeroTwo.astro";
+import Subscribe from "@/components/blog/Subscribe.astro";
+// Blog entries
+import EntriesOne from "@/components/blog/BlogEntriesOne.astro";
+import PopularBlogPosts from "@/components/blog/PopularBlogPosts.astro";
+// Get all posts
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime(); // Convert to timestamp
+  const dateB = new Date(b.data.pubDate).getTime(); // Convert to timestamp
+  return dateB - dateA; // Compare timestamps
+});
+---
+
+<BaseLayout>
+  <HeroTwo />
+  <section>
+    <Wrapper variant="standard" class="pt-2 pb-12">
+      <div
+        class="grid border-t border-black pt-2 mt-2 items-start grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-y-12 gap-2"
+      >
+        {allPosts.map((post) => <EntriesOne post={post} />)}
+      </div>
+    </Wrapper>
+  </section>
+  <Subscribe />
+  <section>
+    <Wrapper variant="standard" class="pt-2 pb-12">
+      <Text tag="p" variant="textSM" class="uppercase font-medium">
+        Popular blog posts
+      </Text>
+      <div
+        class="grid border-t border-black pt-2 mt-2 items-start grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-2"
+      >
+        {allPosts.slice(6, 10).map((post) => <PopularBlogPosts post={post} />)}
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
