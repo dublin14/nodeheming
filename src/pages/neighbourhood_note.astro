@@ -1,89 +1,51 @@
 ---
-// src/pages/content/[type].astro
+// src/pages/neighbourhood-notes.astro
 import Layout from 'src/layouts/BaseLayout.astro';
-import { fetchDrupalCollection } from 'src/lib/api';
+import { fetchDrupalCollection, processDrupalTextField } from 'src/lib/api';
 
-// Get the content type from URL parameter
-const { type } = Astro.params;
-
-let items = [];
+let notes = [];
 let error = null;
 
 try {
-  if (type) {
-    const response = await fetchDrupalCollection(type, {
-      'sort[sort-created][path]': 'created',
-      'sort[sort-created][direction]': 'DESC',
-      'page[limit]': 10
-    });
-    items = response.data || [];
-  } else {
-    error = "Missing content type";
-  }
+  const response = await fetchDrupalCollection('neighbourhood_note', {
+    'sort[sort-created][path]': 'created',
+    'sort[sort-created][direction]': 'DESC',
+    'page[limit]': 20
+  });
+  
+  notes = response.data || [];
 } catch (e) {
   error = e.message;
+  console.error('Failed to fetch neighbourhood notes:', e);
 }
-
-// Convert type to a readable title (e.g., "article" to "Articles")
-const typeTitle = type ? type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ') + 's' : '';
 ---
 
-<Layout title={typeTitle}>
+<Layout title="Neighbourhood Notes">
   <main>
-    <h1>{typeTitle}</h1>
+    <h1>Neighbourhood Notes</h1>
     
     {error && (
       <div class="error">
-        <p>Error: {error}</p>
+        <p>Error loading notes: {error}</p>
       </div>
     )}
     
-    {items.length === 0 && !error && (
-      <p>No content found. Have you created any {type} content in your Drupal site?</p>
+    {notes.length === 0 && !error && (
+      <p>No neighbourhood notes found. Have you created any in your Drupal site?</p>
     )}
     
-    <div class="content-grid">
-      {items.map((item) => (
-        <div class="card">
-          <h2>{item.attributes.title}</h2>
-          {item.attributes.body && (
-            <p>
-              {item.attributes.body.summary || 
-               (item.attributes.body.value && 
-                item.attributes.body.value.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150) + '...') || 
-               'No content available'}
-            </p>
-          )}
-          <a href={`/node/${type}/${item.id}`}>Read more</a>
-        </div>
+    <div class="notes-grid">
+      {notes.map(note => (
+        <article class="note-card">
+          <h2>{note.attributes.title}</h2>
+          <p>{processDrupalTextField(note.attributes.body)}</p>
+          <a href={`/neighbourhood-note/${note.id}`}>Read more</a>
+        </article>
       ))}
     </div>
   </main>
 </Layout>
 
 <style>
-  .error {
-    background-color: #ffecec;
-    border-left: 4px solid #f44336;
-    padding: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .card {
-    border: 1px solid #eee;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    transition: transform 0.2s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
+  /* Styles as provided earlier */
 </style>

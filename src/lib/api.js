@@ -8,7 +8,8 @@
  */
 export async function fetchDrupalNode(nodeType, uuid) {
   try {
-    const baseUrl = import.meta.env.PUBLIC_DRUPAL_URL || 'http://localhost/nodehive';
+    // Use the NEXT_PUBLIC_DRUPAL_BASE_URL from your env file
+    const baseUrl = import.meta.env.NEXT_PUBLIC_DRUPAL_BASE_URL || 'https://nodehive-ce.ddev.site';
     const apiPath = `/jsonapi/node/${nodeType}/${uuid}`;
     
     console.log('Fetching node from URL:', `${baseUrl}${apiPath}`);
@@ -41,7 +42,8 @@ export async function fetchDrupalNode(nodeType, uuid) {
  */
 export async function fetchDrupalCollection(nodeType, params = {}) {
   try {
-    const baseUrl = import.meta.env.PUBLIC_DRUPAL_URL || 'http://localhost/nodehive';
+    // Use the NEXT_PUBLIC_DRUPAL_BASE_URL from your env file
+    const baseUrl = import.meta.env.NEXT_PUBLIC_DRUPAL_BASE_URL || 'https://nodehive-ce.ddev.site';
     const apiPath = `/jsonapi/node/${nodeType}`;
     
     const queryParams = new URLSearchParams(params).toString();
