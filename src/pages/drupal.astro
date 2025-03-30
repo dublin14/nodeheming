@@ -1,46 +1,65 @@
 ---
-// src/pages/drupal.astro
-import Layout from '../layouts/BaseLayout.astro';
-import { fetchDrupalContent } from '../lib/api';
+// src/pages/node/[type]/[uuid].astro
+import Layout from '../../../layouts/Layout.astro';
+import { fetchDrupalNode } from '../../../lib/api';
 
-// Fetch articles from Drupal
-const response = await fetchDrupalContent('article', {
-  'sort[sort-created][path]': 'created',
-  'sort[sort-created][direction]': 'DESC',
-  'page[limit]': 10
-});
+// Get the node type and UUID from the URL parameters
+const { type, uuid } = Astro.params;
 
-const articles = response.data || [];
+let content = null;
+let error = null;
+
+try {
+  if (type && uuid) {
+    const response = await fetchDrupalNode(type, uuid);
+    content = response.data;
+  } else {
+    error = "Missing node type or UUID";
+  }
+} catch (e) {
+  error = e.message;
+}
 ---
 
-<Layout title="My Drupal + Astro Site">
+<Layout title={content ? content.attributes.title : "Content"}>
   <main>
-    <h1>Latest Articles</h1>
-    <div class="articles-grid">
-      {articles.map((article) => (
-        <article class="card">
-          <h2>{article.attributes.title}</h2>
-          <p>{article.attributes.body?.summary || article.attributes.body?.value.substring(0, 150) + '...'}</p>
-          <a href={`/article/${article.id}`}>Read more</a>
-        </article>
-      ))}
-    </div>
+    {error && (
+      <div class="error">
+        <p>Error: {error}</p>
+      </div>
+    )}
+    
+    {content && (
+      <article>
+        <h1>{content.attributes.title}</h1>
+        {content.attributes.body && (
+          <div set:html={content.attributes.body.processed || content.attributes.body.value} />
+        )}
+        
+        <div class="meta">
+          <p>Created: {new Date(content.attributes.created).toLocaleDateString()}</p>
+        </div>
+      </article>
+    )}
   </main>
 </Layout>
 
 <style>
-  .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+  .error {
+    background-color: #ffecec;
+    border-left: 4px solid #f44336;
+    padding: 1rem;
+    margin-bottom: 2rem;
   }
-  .card {
-    border: 1px solid #eee;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    transition: transform 0.2s ease;
+  
+  article {
+    max-width: 800px;
+    margin: 0 auto;
   }
-  .card:hover {
-    transform: translateY(-5px);
+  
+  .meta {
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.9rem;
   }
 </style>
