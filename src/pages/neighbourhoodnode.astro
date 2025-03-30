@@ -1,7 +1,7 @@
 ---
 // src/pages/node/[type]/[uuid].astro
-import Layout from '../../../layouts/BaseLayout.astro';
-import { fetchDrupalNode } from '../../../lib/api';
+import Layout from 'src/layouts/BaseLayout.astro';
+import { fetchDrupalNode } from 'src/lib/api';
 
 // Get the node type and UUID from the URL parameters
 const { type, uuid } = Astro.params;
