@@ -6,7 +6,7 @@
   "scripts": {
   "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
