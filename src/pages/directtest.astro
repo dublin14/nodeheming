@@ -1,0 +1,22 @@
+// For testing only
+export async function fetchNeighbourhoodNotesHardcoded() {
+  try {
+    const url = 'https://nodehive-ce.ddev.site/jsonapi/node/neighbourhood_note';
+    console.log('Fetching from hardcoded URL:', url);
+    
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/vnd.api+json',
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error in hardcoded fetch:', error);
+    throw error;
+  }
+}
