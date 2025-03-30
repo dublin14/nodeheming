@@ -1,22 +1,22 @@
-// For testing only
-export async function fetchNeighbourhoodNotesHardcoded() {
-  try {
-    const url = 'https://nodehive-ce.ddev.site/jsonapi/node/neighbourhood_note';
-    console.log('Fetching from hardcoded URL:', url);
-    
-    const response = await fetch(url, {
-      headers: {
-        'Accept': 'application/vnd.api+json',
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status} ${response.statusText}`);
-    }
-    
-    return await response.json();
-  } catch (error) {
-    console.error('Error in hardcoded fetch:', error);
-    throw error;
-  }
+---
+// Simplest possible test
+const testUrl = 'https://nodehive-ce.ddev.site';
+let status = 'Testing...';
+
+try {
+  const response = await fetch(testUrl);
+  status = `Connection successful: ${response.status}`;
+} catch (error) {
+  status = `Connection failed: ${error.message}`;
 }
+---
+
+<html>
+<head>
+  <title>Basic Test</title>
+</head>
+<body>
+  <h1>Basic Connection Test</h1>
+  <p>{status}</p>
+</body>
+</html>
