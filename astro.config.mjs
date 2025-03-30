@@ -5,7 +5,13 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
+  
+  server: {
+    proxy: {
+      '/jsonapi': 'https://nodehive-ce.ddev.site', // Point this to your local Drupal backend
+    },
+  },
+    vite: {
     plugins: [tailwindcss()],
   },
   markdown: {
@@ -22,3 +28,5 @@ export default defineConfig({
   site: 'https://yourdomain.com',
   integrations: [sitemap(), mdx()]
 });
+
+

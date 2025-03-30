@@ -1,0 +1,52 @@
+---
+// No server-side fetching
+---
+
+<html>
+<head>
+  <title>Client-Side API Test</title>
+</head>
+<body>
+  <h1>Client-Side API Connection Test</h1>
+  <div id="result">Testing connection...</div>
+  <div id="details"></div>
+
+  <script>
+    // Client-side fetch
+    async function testConnection() {
+      const resultElement = document.getElementById('result');
+      const detailsElement = document.getElementById('details');
+      
+      try {
+        console.log('Attempting to fetch from Drupal API...');
+        const url = 'https://nodehive-ce.ddev.site/jsonapi/node/neighbourhood_note/ca7795d2-3cca-4773-8f2b-14e138dc8f38';
+        
+        resultElement.innerHTML = `<p>Connecting to: ${url}</p>`;
+        
+        const response = await fetch(url, {
+          headers: {
+            'Accept': 'application/vnd.api+json',
+          }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          resultElement.innerHTML = `<p style="color: green">Connection successful! Retrieved: ${data.data.attributes.title}</p>`;
+          detailsElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } else {
+          resultElement.innerHTML = `<p style="color: red">Error: ${response.status} ${response.statusText}</p>`;
+          const text = await response.text();
+          detailsElement.innerHTML = `<pre>${text}</pre>`;
+        }
+      } catch (error) {
+        resultElement.innerHTML = `<p style="color: red">Connection failed: ${error.message}</p>`;
+        detailsElement.innerHTML = `<p>Check browser console for more details (F12)</p>`;
+        console.error('Full error:', error);
+      }
+    }
+
+    // Run the test when the page loads
+    window.onload = testConnection;
+  </script>
+</body>
+</html>
