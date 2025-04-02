@@ -6,23 +6,23 @@ import { fetchDrupalCollection } from "src/lib/fetchDrupalCollection.js";
 const response = await fetchDrupalCollection({ type: "node/neighbourhood_note" });
 const notes = response?.data || [];
 ---
+
+
 <BaseLayout>
-
-
 
   <h1 class="text-3xl font-bold mb-4">Neighbourhood Notes</h1>
 
- <div class="w-full">
+ <div class="w-full relative">
   <div class="z-10 lg:w-4/12 md:w-6/12 sm:w-full relative">
-  <div class="space-y-6">
+    <div class="space-y-6">
     {notes.map(note => (
       <DrupalCard
         title={note.attributes.title}
         excerpt={note.attributes.body?.summary || note.attributes.body?.value?.slice(0, 120)}
         date={new Date(note.attributes.created).toLocaleDateString()}
         link={`/neighbourhood_note/${note.id}`}
-      /></div>
+      />
     ))}
-  </div></div>
+ </div></div>
 
 </BaseLayout>
