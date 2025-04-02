@@ -18,9 +18,9 @@ const item = note.data;
 
 
 <BaseLayout>
-  <article class="prose max-w-2xl mx-auto">
+  <article class="max-w-2xl mx-auto">
     <h1>{item.attributes.title}</h1>
     <p class="text-sm text-gray-500">{new Date(item.attributes.created).toLocaleDateString()}</p>
-    <div class="prose max-w-none" set:html={item.attributes.body?.processed}></div>
+    <div class="max-w-none" set:html={item.attributes.body?.processed}></div>
   </article>
 </BaseLayout>
