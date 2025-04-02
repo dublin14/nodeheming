@@ -146,3 +146,4 @@
   --astro-code-token-italic: italic;
   --astro-code-token-underline: underline;
 }
+@import "./emulatefancy.css";

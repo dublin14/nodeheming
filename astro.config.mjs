@@ -29,13 +29,3 @@ export default defineConfig({
   integrations: [sitemap(), mdx()]
 });
 
-
-theme: {
-  extend: {
-    colors: {
-      brand: {
-        red: '#e30613',
-      },
-    },
-  },
-}

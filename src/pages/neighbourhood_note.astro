@@ -7,7 +7,11 @@ const response = await fetchDrupalCollection({ type: "node/neighbourhood_note" }
 const notes = response?.data || [];
 ---
 <BaseLayout>
+
+
+
   <h1 class="text-3xl font-bold mb-6">Neighbourhood Notes</h1>
+  <div class="z-10 lg:w-4/12 md:w-6/12 sm:w-full relative">
   <div class="space-y-6">
     {notes.map(note => (
       <DrupalCard
@@ -17,5 +21,5 @@ const notes = response?.data || [];
         link={`/neighbourhood_note/${note.id}`}
       />
     ))}
-  </div>
+  </div></div>
 </BaseLayout>
