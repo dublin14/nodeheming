@@ -1,51 +1,21 @@
 ---
-// src/pages/neighbourhood-notes.astro
-import Layout from 'src/layouts/BaseLayout.astro';
-import { fetchDrupalCollection, processDrupalTextField } from 'src/lib/api';
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import DrupalCard from "src/components/DrupalCard.astro";
+import { fetchDrupalCollection } from "src/lib/fetchDrupalCollection.js";
 
-let notes = [];
-let error = null;
-
-try {
-  const response = await fetchDrupalCollection('neighbourhood_note', {
-    'sort[sort-created][path]': 'created',
-    'sort[sort-created][direction]': 'DESC',
-    'page[limit]': 20
-  });
-  
-  notes = response.data || [];
-} catch (e) {
-  error = e.message;
-  console.error('Failed to fetch neighbourhood notes:', e);
-}
+const response = await fetchDrupalCollection({ type: "node/neighbourhood_note" });
+const notes = response?.data || [];
 ---
-
-<Layout title="Neighbourhood Notes">
-  <main>
-    <h1>Neighbourhood Notes</h1>
-    
-    {error && (
-      <div class="error">
-        <p>Error loading notes: {error}</p>
-      </div>
-    )}
-    
-    {notes.length === 0 && !error && (
-      <p>No neighbourhood notes found. Have you created any in your Drupal site?</p>
-    )}
-    
-    <div class="notes-grid">
-      {notes.map(note => (
-        <article class="note-card">
-          <h2>{note.attributes.title}</h2>
-          <p>{processDrupalTextField(note.attributes.body)}</p>
-          <a href={`/neighbourhood-note/${note.id}`}>Read more</a>
-        </article>
-      ))}
-    </div>
-  </main>
-</Layout>
-
-<style>
-  /* Styles as provided earlier */
-</style>
+<BaseLayout>
+  <h1 class="text-3xl font-bold mb-6">Neighbourhood Notes</h1>
+  <div class="space-y-6">
+    {notes.map(note => (
+      <DrupalCard
+        title={note.attributes.title}
+        excerpt={note.attributes.body?.summary || note.attributes.body?.value?.slice(0, 120)}
+        date={new Date(note.attributes.created).toLocaleDateString()}
+        link={`/neighbourhood_note/${note.id}`}
+      />
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,13 @@
+---
+const { title, excerpt, date, type = "note", link = "#" } = Astro.props;
+
+const bgClass = type === "planning" ? "bg-accent-100" : "bg-base-100";
+---
+
+<article class={`p-4 rounded-lg border shadow-sm hover:shadow-md transition ${bgClass}`}>
+  <h2 class="text-xl font-semibold text-base-800 mb-1">
+    <a href={link} class="hover:underline">{title}</a>
+  </h2>
+  <time class="text-sm text-base-500 block mb-2">{date}</time>
+  <p class="text-base text-base-700">{excerpt}</p>
+</article>

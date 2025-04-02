@@ -30,3 +30,12 @@ export default defineConfig({
 });
 
 
+theme: {
+  extend: {
+    colors: {
+      brand: {
+        red: '#e30613',
+      },
+    },
+  },
+}

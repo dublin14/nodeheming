@@ -1,0 +1,26 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const response = await fetch("https://nodehive-ce.ddev.site/jsonapi/node/neighbourhood_note");
+  const notes = await response.json();
+
+  return notes.data.map(note => ({
+    params: { id: note.id },
+  }));
+}
+
+const { id } = Astro.params;
+const response = await fetch(`https://nodehive-ce.ddev.site/jsonapi/node/neighbourhood_note/${id}`);
+const note = await response.json();
+const item = note.data;
+---
+
+
+<BaseLayout>
+  <article class="prose max-w-2xl mx-auto">
+    <h1>{item.attributes.title}</h1>
+    <p class="text-sm text-gray-500">{new Date(item.attributes.created).toLocaleDateString()}</p>
+    <div class="prose max-w-none" set:html={item.attributes.body?.processed}></div>
+  </article>
+</BaseLayout>

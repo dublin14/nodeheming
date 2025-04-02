@@ -1,0 +1,40 @@
+
+
+
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import NoteCard from 'src/components/NoteCard.astro';
+---
+
+<BaseLayout>
+    <h1 class="text-3xl font-bold text-accent-600">Neighbourhood Notes</h1>
+  
+    <div class="space-y-6">
+      <article class="p-4 rounded-lg bg-base-100 shadow">
+        <h2 class="text-xl font-semibold text-base-800">Community Garden Opens</h2>
+        <p class="text-base-600">New initiative launched in Ballinteer.</p>
+      </article>
+  
+      <article class="p-4 rounded-lg bg-base-100 shadow">
+        <h2 class="text-xl font-semibold text-base-800">Traffic Calming Measures</h2>
+        <p class="text-base-600">Plans approved for Dundrum Village.</p>
+      </article>
+    </div>
+
+
+    <div class="p-4 text-2xl text-red-600 bg-gray-100">
+        If this text is big and red with a gray background, Tailwind is working!
+      </div>
+
+
+      <div class="p-4 text-xl text-base-600 bg-accent-100">
+        If this renders with theme colors, your theme’s custom Tailwind colors are working too.
+      </div>
+      
+  </BaseLayout>
+
+
+
+
+

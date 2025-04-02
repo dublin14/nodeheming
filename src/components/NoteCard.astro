@@ -1,0 +1,9 @@
+---
+const { title, excerpt, date } = Astro.props;
+---
+
+<article class="rounded-xl border border-gray-200 p-4 shadow hover:shadow-md transition">
+  <h2 class="text-xl font-semibold text-gray-800 mb-1">{title}</h2>
+  <time class="text-sm text-gray-500">{date}</time>
+  <p class="mt-2 text-gray-700 text-sm">{excerpt}</p>
+</article>
